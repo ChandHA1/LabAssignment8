@@ -38,6 +38,51 @@ void mergeSort(int pData[], int l, int r){
 		mergeSort(pData, l, m);
 		mergeSort(pData, m+1, r);
 
+		int i,j,k;
+		int n1 = m-l+1;
+		int n2 = r-m;
+
+		int * t1 = Alloc(n1*sizeof(int));
+		int * t2 = Alloc(n2*sizeof(int));
+
+		for(i = 0; i < n1; i++){
+			t1[i] = pData[l+i];
+		}
+		for(j = 0; j < n2; j++){
+			t2[j] = pData[m+j+1];
+		}
+
+		i = 0;
+		j = 0; 
+		k = l;
+
+		while(i < n1 && j < n2){
+			if(t1[i] <= t2[j]){
+				pData[k] = t1[i];
+				i++;
+			}else{
+				pData[k] = t2[j];
+				j++;
+			}
+			k++;
+		}
+
+		//Copy the remaining elements of t1, if there are any 
+		while (i < n1){
+			pData[k] = t1[i];
+			i++;
+			k++;
+		}
+		//Copy the remaining elements of t2, if there are any
+		while (j < n2){
+			pData[k] = t2[j];
+			j++;
+			k++;
+		}
+		
+		DeAlloc(t1);
+		DeAlloc(t2);
+
 	}
 }
 
